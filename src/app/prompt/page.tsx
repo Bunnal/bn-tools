@@ -119,7 +119,7 @@ export default function PromptStudioPage() {
       }
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to generate prompt.");
+        throw new Error(String(data.error || "Failed to generate prompt."));
       }
 
       setResult(data as PromptResult);
