@@ -31,7 +31,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
+    // Safety check log for debugging Vercel environment variable corruptions (without exposing the whole key)
+    console.log("[generate-prompt] API Key diagnostic:", {
+      length: apiKey.length,
+      prefix: apiKey.slice(0, 6) + "...",
+      suffix: "..." + apiKey.slice(-6),
+      hasWhitespace: /\s/.test(apiKey),
+      hasNewlines: /\n|\r/.test(apiKey)
+    });
+
+    const genAI = new GoogleGenerativeAI(apiKey.trim());
     const body = await req.json();
     const { imageUrl, imageBase64, mimeType } = body;
 
