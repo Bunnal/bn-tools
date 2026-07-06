@@ -24,6 +24,10 @@ export default function LandingPage() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><path d="m10 8 6 4-6 4V8z"/></svg>
               Remove Video Watermark
             </a>
+            <a href="/prompt" className="btn btn-outline btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Generate Image Prompt
+            </a>
           </div>
         </div>
 
@@ -84,6 +88,17 @@ export default function LandingPage() {
             <p className={styles.featureDesc}>
               Export your clean videos in HD, 2K, or 4K resolution with loop
               support.
+            </p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3 className={styles.featureTitle}>Prompt Generator</h3>
+            <p className={styles.featureDesc}>
+              Upload or link any image and get a production-ready AI prompt
+              for Midjourney, DALL·E, or Imagen.
             </p>
           </div>
         </div>
