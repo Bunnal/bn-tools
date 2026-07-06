@@ -127,7 +127,10 @@ export async function POST(req: NextRequest) {
     if (message.includes("429") || message.includes("Too Many Requests") || message.includes("Quota exceeded")) {
       message = "API quota exceeded. Your free-tier limit has been reached. Please wait a moment and try again, or upgrade your Google AI plan at https://ai.google.dev.";
     } else if (message.includes("API_KEY_INVALID") || message.includes("API key not valid")) {
-      message = "Invalid Gemini API key. Please check your GEMINI_API_KEY in .env or .env.local.";
+      const partialKeyInfo = apiKey 
+        ? `(Detected key: length=${apiKey.length}, starts with="${apiKey.slice(0, 6)}...", ends with="...${apiKey.slice(-6)}")` 
+        : "(No key detected)";
+      message = `Invalid Gemini API key. ${partialKeyInfo}. Please check your GEMINI_API_KEY environment variable in Vercel settings and make sure to trigger a new deployment.`;
     }
 
     return NextResponse.json({ error: message }, { status: 500 });
