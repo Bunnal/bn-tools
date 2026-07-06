@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "gemini-watermark-remover-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@pilio/gemini-watermark-remover": "file:../../gemini-watermark-remover",
+    "@pilio/gemini-watermark-remover": "file:../gemini-watermark-remover",
     "mediabunny": "^1.50.6",
     "next": "16.2.10",
     "onnxruntime-web": "^1.27.0",

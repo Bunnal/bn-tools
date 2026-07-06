@@ -357,13 +357,13 @@ interface AppState {
 ```
 gemini-watermark-remover-web/
 ├── docs/
-│   └── architecture.md          ← This document
-├── ui/
-│   ├── 01_landing.jpg
-│   ├── 02_image_remover.jpg
-│   ├── 03_video_remover.jpg
-│   ├── 04_export_panel.jpg
-│   └── 05_dashboard.jpg
+│   ├── architecture.md          ← This document
+│   └── ui/                      ← Reference UI mockups
+│       ├── 01_landing.jpg
+│       ├── 02_image_remover.jpg
+│       ├── 03_video_remover.jpg
+│       ├── 04_export_panel.jpg
+│       └── 05_dashboard.jpg
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx
