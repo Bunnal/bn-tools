@@ -101,8 +101,7 @@ app/
 └── components/
     ├── layout/
     │   ├── Header.tsx          ← Sticky nav (PixelClean logo, links, settings)
-    │   ├── Footer.tsx          ← System status bar
-    │   └── ThemeToggle.tsx     ← Dark/light toggle
+    │   └── Footer.tsx          ← System status bar
     ├── landing/
     │   ├── Hero.tsx            ← Gradient headline, CTAs, before/after preview
     │   └── FeatureCards.tsx    ← 3 feature cards (Private, AI, Export)

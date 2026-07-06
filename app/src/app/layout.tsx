@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { HistoryProvider } from "@/store/HistoryContext";
+import { NavLinks } from "./NavLinks";
 
 export const metadata: Metadata = {
   title: "PixelClean — AI Gemini Watermark Remover",
@@ -15,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <HistoryProvider>
+          <Header />
+          <main className="page-transition">{children}</main>
+          <Footer />
+        </HistoryProvider>
       </body>
     </html>
   );
@@ -32,16 +36,9 @@ function Header() {
           <a href="/" className="logo">
             PixelClean
           </a>
-          <nav className="nav">
-            <a href="/image" className="nav-link">Image Studio</a>
-            <a href="/video" className="nav-link">Video Studio</a>
-            <a href="/history" className="nav-link">History</a>
-          </nav>
+          <NavLinks />
         </div>
         <div className="header-right">
-          <button className="btn-icon btn-ghost" aria-label="Settings" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          </button>
           <a href="/video" className="btn btn-primary" style={{ height: 36, padding: "0 16px", fontSize: "0.85rem" }}>
             Export
           </a>
@@ -79,20 +76,6 @@ function Header() {
           color: var(--accent);
           letter-spacing: -0.02em;
         }
-        .nav {
-          display: flex;
-          gap: var(--space-6);
-        }
-        .nav-link {
-          font-size: var(--text-sm);
-          font-weight: 500;
-          color: var(--text-secondary);
-          transition: color var(--duration-fast);
-          position: relative;
-        }
-        .nav-link:hover {
-          color: var(--text-primary);
-        }
         .header-right {
           display: flex;
           align-items: center;
@@ -100,6 +83,7 @@ function Header() {
         }
         @media (max-width: 640px) {
           .nav { display: none; }
+          .mobile-menu-btn { display: flex !important; }
         }
       `}</style>
     </header>
@@ -150,6 +134,7 @@ function Footer() {
           border-radius: 50%;
           background: var(--accent);
           box-shadow: 0 0 8px var(--accent);
+          animation: pulse 2s ease-in-out infinite;
         }
         .footer-right {
           display: flex;

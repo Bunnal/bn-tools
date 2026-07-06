@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { WatermarkEngine } from "@/engine/sdk/browser.js";
+import { useHistory } from "@/store/HistoryContext";
 import styles from "./page.module.css";
 
 const loadImage = (url: string): Promise<HTMLImageElement> => {
@@ -44,6 +45,9 @@ export default function ImageRemoverPage() {
   const [alphaGain, setAlphaGain] = useState(1.00);
   const [preserveExif, setPreserveExif] = useState(true);
   const [autoCrop, setAutoCrop] = useState(false);
+
+  // History
+  const { addRecord } = useHistory();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -99,6 +103,21 @@ export default function ImageRemoverPage() {
       setProgress(100);
       setStatus({ text: "Watermark removed successfully", tone: "success" });
       setProcessing(false);
+
+      // Record to history
+      const now = Date.now();
+      addRecord({
+        id: `img-${now}-${Math.random().toString(36).slice(2, 8)}`,
+        fileName: file.name,
+        fileType: "image",
+        fileSize: file.size,
+        dimensions: `${img.naturalWidth}×${img.naturalHeight}`,
+        status: "completed",
+        createdAt: now,
+        completedAt: Date.now(),
+        outputSize: blob.size,
+        settings: { modelQuality, alphaGain, preserveExif, autoCrop },
+      });
     } catch (error: any) {
       console.error(error);
       setStatus({ text: error?.message || "Watermark removal failed", tone: "error" });

@@ -8,10 +8,21 @@
   margin-bottom: var(--space-10);
 }
 
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
 .sectionTitle {
   font-size: var(--text-2xl);
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 0;
+}
+
+.section > .sectionTitle {
   margin-bottom: var(--space-5);
 }
 
@@ -38,7 +49,7 @@
 .quickCard:hover {
   border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), 0 0 20px var(--accent-glow);
 }
 
 .quickIcon {
@@ -63,6 +74,48 @@
   line-height: 1.5;
 }
 
+/* ── Empty State ─────────────────────────────────────────── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  animation: fadeIn var(--duration-slow) var(--ease-out) both;
+}
+
+.emptyTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: var(--space-5);
+}
+
+.emptyText {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}
+
+.emptyActions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--bg-surface-3);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
 /* ── Table ────────────────────────────────────────────────── */
 .tableCard {
   background: var(--bg-surface);
@@ -73,7 +126,7 @@
 
 .tableHeader, .tableRow {
   display: grid;
-  grid-template-columns: minmax(180px, 2fr) 80px 1fr 1fr 100px 80px;
+  grid-template-columns: minmax(180px, 2fr) 80px 1fr 1fr 100px 60px;
   align-items: center;
   padding: var(--space-3) var(--space-5);
   gap: var(--space-3);
@@ -93,10 +146,22 @@
 .tableRow {
   border-bottom: 1px solid var(--border);
   transition: background 0.15s;
+  animation: rowSlideIn 0.3s var(--ease-out) both;
 }
 
 .tableRow:last-child { border-bottom: none; }
 .tableRow:hover { background: var(--bg-surface-2); }
+
+@keyframes rowSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 .colFile {
   display: flex;
@@ -133,6 +198,7 @@
 .colActions {
   display: flex;
   gap: var(--space-1);
+  justify-content: center;
 }
 
 /* Type Badges */
@@ -163,6 +229,14 @@
   align-items: center;
   gap: var(--space-2);
   color: var(--success);
+  font-size: var(--text-sm);
+}
+
+.statusFailed {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--error);
   font-size: var(--text-sm);
 }
 
@@ -202,6 +276,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  transition: all 0.3s var(--ease-out);
+}
+
+.statCard:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .statValue {
@@ -232,4 +313,5 @@
     grid-template-columns: 1fr 80px 80px;
   }
   .colDetails, .colDate, .colActions { display: none; }
+  .sectionHeader { flex-wrap: wrap; gap: var(--space-3); }
 }
