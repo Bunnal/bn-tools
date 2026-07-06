@@ -40,7 +40,9 @@ export async function POST(req: NextRequest) {
       hasNewlines: /\n|\r/.test(apiKey)
     });
 
-    const genAI = new GoogleGenerativeAI(apiKey.trim());
+    // Sanitize the API key by trimming whitespaces and stripping any accidental leading '=' from copy-paste
+    const cleanApiKey = apiKey.trim().replace(/^=/, "");
+    const genAI = new GoogleGenerativeAI(cleanApiKey);
     const body = await req.json();
     const { imageUrl, imageBase64, mimeType } = body;
 
