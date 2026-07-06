@@ -1,5 +1,5 @@
 {
-  "name": "gemini-watermark-remover-web",
+  "name": "gemini-watermark-remover",
   "version": "0.1.0",
   "private": true,
   "scripts": {

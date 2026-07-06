@@ -355,7 +355,7 @@ interface AppState {
 ## 11. File Structure
 
 ```
-gemini-watermark-remover-web/
+gemini-watermark-remover/
 ├── docs/
 │   ├── architecture.md          ← This document
 │   └── ui/                      ← Reference UI mockups

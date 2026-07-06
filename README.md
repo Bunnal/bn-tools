@@ -33,7 +33,7 @@ PixelClean is a web-based, AI-powered tool designed to detect and remove Gemini 
 ## 📁 Repository Structure
 
 ```
-gemini-watermark-remover-web/
+gemini-watermark-remover/
 ├── README.md                ← Project documentation
 ├── LICENSE                  ← Open source license
 ├── .gitignore               ← Git ignore rules
@@ -52,4 +52,4 @@ gemini-watermark-remover-web/
 ```
 
 ## 🛡️ Privacy & Technology
-PixelClean leverages `@pilio/gemini-watermark-remover`, ONNX Runtime Web, and Mediabunny to process media entirely client-side. Your files never leave your device.
+PixelClean leverages WebGPU, WebAssembly, ONNX Runtime Web, and Mediabunny to process media entirely client-side. Your files never leave your device.
