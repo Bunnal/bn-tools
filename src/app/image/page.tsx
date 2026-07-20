@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { WatermarkEngine } from "@/engine/sdk/browser.js";
 import { useHistory } from "@/store/HistoryContext";
 import styles from "./page.module.css";
@@ -69,6 +69,22 @@ export default function ImageRemoverPage() {
     setDragging(false);
     const f = e.dataTransfer.files[0];
     if (f) handleFile(f);
+  }, [handleFile]);
+
+  // ── Paste support ──────────────────────────────────────────────────────────
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of Array.from(items)) {
+        if (item.kind === "file" && item.type.startsWith("image/")) {
+          const f = item.getAsFile();
+          if (f) { handleFile(f); break; }
+        }
+      }
+    };
+    window.addEventListener("paste", handlePaste);
+    return () => window.removeEventListener("paste", handlePaste);
   }, [handleFile]);
 
   const handleProcess = useCallback(async () => {
@@ -238,7 +254,7 @@ export default function ImageRemoverPage() {
           >
             <svg className={styles.dropzoneIcon} width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <span className={styles.dropzoneTitle}>Drop image here</span>
-            <span className={styles.dropzoneHint}>PNG, JPG, WebP up to 20MB</span>
+            <span className={styles.dropzoneHint}>PNG, JPG, WebP up to 20MB · or paste ⌘V</span>
             <input
               ref={fileInputRef}
               type="file"

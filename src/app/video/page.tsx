@@ -129,6 +129,22 @@ export default function VideoRemoverPage() {
     if (f) handleFile(f);
   }, [handleFile]);
 
+  // ── Paste support ──────────────────────────────────────────────────────────
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of Array.from(items)) {
+        if (item.kind === "file" && item.type.startsWith("video/")) {
+          const f = item.getAsFile();
+          if (f) { handleFile(f); break; }
+        }
+      }
+    };
+    window.addEventListener("paste", handlePaste);
+    return () => window.removeEventListener("paste", handlePaste);
+  }, [handleFile]);
+
   // ---------- Playback ----------
   const togglePlay = useCallback(() => {
     const v = originalVideoRef.current;
@@ -423,7 +439,7 @@ export default function VideoRemoverPage() {
           >
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <span className={styles.dropzoneTitle}>{file ? file.name : "Drop video here"}</span>
-            <span className={styles.dropzoneHint}>MP4, WebM, MOV supported</span>
+            <span className={styles.dropzoneHint}>MP4, WebM, MOV supported · or paste ⌘V</span>
             <input
               ref={fileInputRef}
               type="file"
